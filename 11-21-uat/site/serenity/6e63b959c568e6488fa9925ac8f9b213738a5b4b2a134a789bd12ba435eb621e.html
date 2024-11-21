@@ -1,0 +1,2686 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create general ledger entry using sustainability accounts</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<!--[if IE 7]>
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.min.css">-->
+
+<link rel="stylesheet" type="text/css" href="fontawesome-free-5.7.2-web/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="fontawesome-free-5.7.2-web/css/v4-shims.min.css">
+
+<!-- JQuery -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><link rel="stylesheet" type="text/css" href="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.css">
+<link rel="stylesheet" type="text/css" href="chartist/dist/chartist.min.css">
+<script src="chartist/dist/chartist.min.js"></script>
+<script src="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
+<!-- Required Stylesheets -->
+<link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+
+<!-- Required Javascript -->
+<script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.19/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.19/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.19/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.19/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.19/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<link rel="stylesheet" href="css/core.css"/>
+<link rel="stylesheet" href="css/link.css"/>
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/><!-- JQuery-UI -->
+<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
+<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.19/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.19/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.19/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.19/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.19/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<!-- ImgPreview -->
+<script src="scripts/imgpreview.full.jquery.js" type="text/javascript"></script>
+</head>
+
+<body class="results-page">
+
+
+<div id="topheader">
+    <div id="topbanner">
+        <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
+        <div id="projectname-banner" style="float:right">
+            <span class="projectname">
+                <span class="projecttitle"></span>
+                <span class="projectsubtitle"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="middlecontent">
+    <div id="contenttop">
+        <div class="middlebg">
+        <span class="breadcrumbs">
+            <a href="index.html" class="breadcrumbs">Home</a>
+
+            > <a href="7adabce4641091463542851945583ccb0932d4cc263a64d5705399f41f233346.html">FAD</a>
+            > <a href="0a0d75fbf2dfa2b919402b3df7c8ee4ecaf656efa39b019121e1c76344a8dee2.html">General Ledger</a>
+            > <a href="f57d69d58d26dcc4edbe9832bdb86bb5312e11945630352489446a68dca4335c.html">General Ledger Entries</a>
+        > Create general ledger entry using sustainability accounts
+        </span>
+        </div>
+        <div class="rightbg"></div>
+    </div>
+
+    <div class="clr"></div>
+
+    <!--/* starts second table*/-->
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#"><i class="fa fa-check-square-o"></i> Overall Test Results</a>
+        </li>
+        <li >
+            <a href="capabilities.html"><i class="fa fa-book"></i> Requirements</a>
+        </li>
+        <li >
+            <a href="7ea0a5e2d679b9deeda9910ae4a9bcd3a281e0d908303a9e16e486103e98880c.html"><i class="fa fa-comments-o"></i> Capabilities</a>
+        </li>
+        <li >
+            <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="fa fa-comments-o"></i> Features</a>
+        </li>
+        <li >
+            <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="fa fa-comments-o"></i> Stories</a>
+        </li>
+    </ul>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 21-11-2024 11:56</span>
+    <br style="clear:left"/>
+</div>
+    <div class="clr"></div>
+
+
+    <div id="contentbody">
+        <div class="titlebar">
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td>
+                                <div>
+                                    <h3 class="discreet-story-header">
+                                        <i class="fa fa-2x fa-comments-o"></i>
+                                        <span class="story-header-title">General Ledger Entries </span>
+                                    </h3>
+
+                                </div>
+
+                        </td>
+                        <td valign="top">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td colspan="2" class="test-title-bar">
+                            <span class="outcome-icon"><a href='##beforetable'><i class='fa fa-exclamation-triangle error-icon fa-2x' title='ERROR'></i></a></span>
+                            <span class="test-case-title">
+                                <span class="error-color">
+                                    Create general ledger entry using sustainability accounts
+                                        <span class="related-issue-title">(SPRINT7)</span>
+                                </span>
+                            </span>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="clr"></div>
+
+
+    <div id="beforetable"></div>
+
+
+    <div id="tablecontents">
+        <div>
+            <table class="step-table">
+                <tr class="step-titles">
+                    <th width="65">
+                    </th>
+                    <th class="step-description-column greentext">
+                        Steps
+                    </th>
+
+                        <th width="150" class="greentext">Screenshots</th>
+                    <th width="130" class="greentext">Outcome</th>
+                    <th width="100" class="greentext"><i title="Duration" class="far fa-clock"></i></th>
+                </tr>
+                <tr class="step-table-separator">
+                    <td colspan="5"></td>
+                </tr>
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0 success-icon"
+                                       style="margin-left: 20px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                                   style="display:block;">
+                                    <span class="top-level-step">
+                                                Given that I'm logged in to 'General Ledger Entry' page
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=0">
+                                        <img src="0a65d12f867f1b85272dba2c44fd4ac2dcd0608cde5c2097066ddc9777f564bd.png"
+                                             href="0a65d12f867f1b85272dba2c44fd4ac2dcd0608cde5c2097066ddc9777f564bd.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=6">
+                                        <img src="dbb7e37c35828039ef57bc2496ff0bb60f4b6b0ed8a0a0b2afa79cdb7324bd6f.png"
+                                             href="dbb7e37c35828039ef57bc2496ff0bb60f4b6b0ed8a0a0b2afa79cdb7324bd6f.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">43.52s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="0-0"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                When i open FAD URL
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=1">
+                                        <img src="0a65d12f867f1b85272dba2c44fd4ac2dcd0608cde5c2097066ddc9777f564bd.png"
+                                             href="0a65d12f867f1b85272dba2c44fd4ac2dcd0608cde5c2097066ddc9777f564bd.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">39.07s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="0-1"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                When i open page from sidebar menu: {General Ledger,General Ledger Entries}
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=2">
+                                        <img src="0a65d12f867f1b85272dba2c44fd4ac2dcd0608cde5c2097066ddc9777f564bd.png"
+                                             href="0a65d12f867f1b85272dba2c44fd4ac2dcd0608cde5c2097066ddc9777f564bd.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=5">
+                                        <img src="dbb7e37c35828039ef57bc2496ff0bb60f4b6b0ed8a0a0b2afa79cdb7324bd6f.png"
+                                             href="dbb7e37c35828039ef57bc2496ff0bb60f4b6b0ed8a0a0b2afa79cdb7324bd6f.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">4.44s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="1"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the 'G/L Header Information' page should show up
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=7">
+                                        <img src="dbb7e37c35828039ef57bc2496ff0bb60f4b6b0ed8a0a0b2afa79cdb7324bd6f.png"
+                                             href="dbb7e37c35828039ef57bc2496ff0bb60f4b6b0ed8a0a0b2afa79cdb7324bd6f.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">3.49s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="2"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the currency to 'USD'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=8">
+                                        <img src="8dff5ddc65780002f1d98357cc21174a1ac6db57bd593695727ec837e0fac636.png"
+                                             href="8dff5ddc65780002f1d98357cc21174a1ac6db57bd593695727ec837e0fac636.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=9">
+                                        <img src="4024c532e20fea928c73049dfc75a073e0edd3695aa3db05c6858e0a08dd0c24.png"
+                                             href="4024c532e20fea928c73049dfc75a073e0edd3695aa3db05c6858e0a08dd0c24.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">12.06s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="3"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the description to 'TEST1'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=10">
+                                        <img src="435ece0d3f34650791efdb366ec82f07b090e36efc1a9c1b579c30f5f74c543c.png"
+                                             href="435ece0d3f34650791efdb366ec82f07b090e36efc1a9c1b579c30f5f74c543c.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.75s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="4"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I click 'Continue' button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=12">
+                                        <img src="858d248f9dc657cec74e378536e31ac2541e67da3f7f5df6d4941111701f20c1.png"
+                                             href="858d248f9dc657cec74e378536e31ac2541e67da3f7f5df6d4941111701f20c1.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.85s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="5"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the 'G/L Distribution' page should show up
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=13">
+                                        <img src="7d7bcdec3c244811933eff30df0cfa1580b586d7cf1cecec7351b3762effe922.png"
+                                             href="7d7bcdec3c244811933eff30df0cfa1580b586d7cf1cecec7351b3762effe922.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">2.8s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="6"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Account Number to '960001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=14">
+                                        <img src="6b362d10c71140f71c2ec6b776700500847dca92d8812dcd072ebc59c4b5f425.png"
+                                             href="6b362d10c71140f71c2ec6b776700500847dca92d8812dcd072ebc59c4b5f425.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=15">
+                                        <img src="405260099245768a160f7a726cbdc27650d25e4bddae520e5c2443166a10f026.png"
+                                             href="405260099245768a160f7a726cbdc27650d25e4bddae520e5c2443166a10f026.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">12.7s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="7"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Line Description placeholder should be set to 'PREMISE CODE/Consumption Period'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=16">
+                                        <img src="cbe4e6432b957150c8904218f24334a6f0a8ff0561d0c4efd546c20ff4b1c212.png"
+                                             href="cbe4e6432b957150c8904218f24334a6f0a8ff0561d0c4efd546c20ff4b1c212.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.62s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="8"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Line Description to 'TEST1'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=17">
+                                        <img src="38797fa5e3f1c7d673fcf5810056d019b24d6b02717ec8081de945de5313f715.png"
+                                             href="38797fa5e3f1c7d673fcf5810056d019b24d6b02717ec8081de945de5313f715.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.06s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="9"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Amount to '1000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=18">
+                                        <img src="773185a60c1ff91802b0941d620fe6751e886b8a44618d4841682172479c2803.png"
+                                             href="773185a60c1ff91802b0941d620fe6751e886b8a44618d4841682172479c2803.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">2.13s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="10"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Cost Center to 'DAV2000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=19">
+                                        <img src="9062adb654c566e78ab2f4e97ffc3ecdb31ddd4d5e380f004a5331a694d72ef7.png"
+                                             href="9062adb654c566e78ab2f4e97ffc3ecdb31ddd4d5e380f004a5331a694d72ef7.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=20">
+                                        <img src="e6fbe9d52b887b6c5e59b7f1b1c2e513e3e85cb3d70093682bb9f9ff4f2c31ea.png"
+                                             href="e6fbe9d52b887b6c5e59b7f1b1c2e513e3e85cb3d70093682bb9f9ff4f2c31ea.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">7s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="11"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the General Obj to 'AFGHAIG'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=21">
+                                        <img src="0590f66ad61d117b6f8da0db9a79336ee69437fbb584b1eff5b03d274bd07585.png"
+                                             href="0590f66ad61d117b6f8da0db9a79336ee69437fbb584b1eff5b03d274bd07585.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=22">
+                                        <img src="f6eb0cf5a84a24aef656a46626d36e71db9248cbd3f3ef7b68412dd23271e749.png"
+                                             href="f6eb0cf5a84a24aef656a46626d36e71db9248cbd3f3ef7b68412dd23271e749.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.76s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="12"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click show next button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=24">
+                                        <img src="04c0859cc2259db677255d9532a87a961afe443b1798ab1c07aff1837e5d2571.png"
+                                             href="04c0859cc2259db677255d9532a87a961afe443b1798ab1c07aff1837e5d2571.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.68s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="13"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Units to '21'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=25">
+                                        <img src="61677ab397826e22921a5383bacd72239475b5ba6df774de7f145d6c8ce9d338.png"
+                                             href="61677ab397826e22921a5383bacd72239475b5ba6df774de7f145d6c8ce9d338.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.14s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="14"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Unit of Measure should be set to 'Cubic Metre'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=26">
+                                        <img src="12ad6f93d17826ec7a550cf342b58eaa068e74802487c502f4f19df6e228dd83.png"
+                                             href="12ad6f93d17826ec7a550cf342b58eaa068e74802487c502f4f19df6e228dd83.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.7s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="15"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the 'Line Ref' to 'AF-HER-ASSENG-07-1-0001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=27">
+                                        <img src="0d15aff4fddd5692f05076f6d24140b27fc62455ae088b1946057d78ae18bfc7.png"
+                                             href="0d15aff4fddd5692f05076f6d24140b27fc62455ae088b1946057d78ae18bfc7.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.37s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="16"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on add line button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=29">
+                                        <img src="590ba7cbfc1529cbba36b3c7febec2f052a58bf9104fef5203130e01a378e4fe.png"
+                                             href="590ba7cbfc1529cbba36b3c7febec2f052a58bf9104fef5203130e01a378e4fe.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.77s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="17"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on the last line
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=31">
+                                        <img src="2aea248e41be9f93324a7ebbd88330ea5242f7de1ab104bd6a0faa6913acfa1d.png"
+                                             href="2aea248e41be9f93324a7ebbd88330ea5242f7de1ab104bd6a0faa6913acfa1d.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.77s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="18"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Account Number to '960002'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=32">
+                                        <img src="5a17f0f12b6cdb082e11376c1d5f9796d84db0be5def1a8da0ba0ce36fefc69d.png"
+                                             href="5a17f0f12b6cdb082e11376c1d5f9796d84db0be5def1a8da0ba0ce36fefc69d.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=33">
+                                        <img src="f63ea76a640956b3c203430c8ee3d8e832f901968cd4ee28210cb603d7c16882.png"
+                                             href="f63ea76a640956b3c203430c8ee3d8e832f901968cd4ee28210cb603d7c16882.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">9.23s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="19"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Line Description placeholder should be set to 'PREMISE CODE/Consumption Period'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=34">
+                                        <img src="87f0b969b8a07ce44149056550d7c1e77318abd5400950392db2a6632c2c256d.png"
+                                             href="87f0b969b8a07ce44149056550d7c1e77318abd5400950392db2a6632c2c256d.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.62s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="20"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Line Description to 'TEST1'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=35">
+                                        <img src="7c4d1a3d436013e40bb58bac2ef761eed5e36f0e42f573c54f23c1ff99888787.png"
+                                             href="7c4d1a3d436013e40bb58bac2ef761eed5e36f0e42f573c54f23c1ff99888787.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.1s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="21"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Amount to '1000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=36">
+                                        <img src="72da4c6653a5659e0d48fd6cf8556234ded09916edeefd3e804384b737daea50.png"
+                                             href="72da4c6653a5659e0d48fd6cf8556234ded09916edeefd3e804384b737daea50.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.31s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="22"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Cost Center to 'DAV2120'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=37">
+                                        <img src="bb4ae2c3a9bfb6ead1df9e8a6383ca94cdc3bb9fa433ac30bb2bcfddb72e9be5.png"
+                                             href="bb4ae2c3a9bfb6ead1df9e8a6383ca94cdc3bb9fa433ac30bb2bcfddb72e9be5.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=38">
+                                        <img src="eaaa0a5cef4dc8d6029eed596d9bdccf197d4928d9567d0a49e13e4a7bda1211.png"
+                                             href="eaaa0a5cef4dc8d6029eed596d9bdccf197d4928d9567d0a49e13e4a7bda1211.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.79s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="23"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the General Obj to 'AFGHAIG'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=39">
+                                        <img src="2e1cf467d65feae3d14365f567a92b056e786e028b8bcf9a27d56019f21124ae.png"
+                                             href="2e1cf467d65feae3d14365f567a92b056e786e028b8bcf9a27d56019f21124ae.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=40">
+                                        <img src="0c19ab765a9167c38cf9cc2fb345c4a14b9b49258fa06501b604c291691d10d7.png"
+                                             href="0c19ab765a9167c38cf9cc2fb345c4a14b9b49258fa06501b604c291691d10d7.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.82s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="24"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click show next button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=42">
+                                        <img src="2f8b3923e94b05f63654afa2e308f933504073dd8b3d485832abd1a04c171d5c.png"
+                                             href="2f8b3923e94b05f63654afa2e308f933504073dd8b3d485832abd1a04c171d5c.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.78s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="25"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Units to '10'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=43">
+                                        <img src="3f06417cee4faa5b5de0e680f05e436bc1e9b6786d5dc5ff67dff3e2f408bc97.png"
+                                             href="3f06417cee4faa5b5de0e680f05e436bc1e9b6786d5dc5ff67dff3e2f408bc97.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.13s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="26"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Unit of Measure should be set to 'Kilowatt Hour'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=44">
+                                        <img src="a3bdf967846025fb024a40f5ccab1f8d3f6d61369a4a201573a0858dc93463e0.png"
+                                             href="a3bdf967846025fb024a40f5ccab1f8d3f6d61369a4a201573a0858dc93463e0.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.6s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="27"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the 'Line Ref' to 'AF-HER-ASSENG-07-1-0001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=45">
+                                        <img src="9d153edd266add416e786c85bbaea357357ecf574312075c5fefee9a0e52d4b5.png"
+                                             href="9d153edd266add416e786c85bbaea357357ecf574312075c5fefee9a0e52d4b5.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.31s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="28"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on add line button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=47">
+                                        <img src="39b48ad9378e5bffb4ab2916ff928792085e0f0a1bfd1c798734896dd61e1e21.png"
+                                             href="39b48ad9378e5bffb4ab2916ff928792085e0f0a1bfd1c798734896dd61e1e21.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.87s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="29"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on the last line
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=49">
+                                        <img src="8d5444a46f4b45ef44521933bd1e8fe5a17730575cd573c7122a1235415db9e0.png"
+                                             href="8d5444a46f4b45ef44521933bd1e8fe5a17730575cd573c7122a1235415db9e0.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.81s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="30"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Account Number to '960003'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=50">
+                                        <img src="776e5e97d073188fa4113d4a21d8b405f7e96ceda72253fcec19f65c7e00f90c.png"
+                                             href="776e5e97d073188fa4113d4a21d8b405f7e96ceda72253fcec19f65c7e00f90c.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=51">
+                                        <img src="65eac6cb821398c7b51c040e2666919a2af098d9279d8d9a944f5d81a9ba227c.png"
+                                             href="65eac6cb821398c7b51c040e2666919a2af098d9279d8d9a944f5d81a9ba227c.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">8.01s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="31"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Line Description placeholder should be set to 'PREMISE CODE/Consumption Period'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=52">
+                                        <img src="46d1de250e50d388c36310f41ffdb1df3820e85dd7a36c963dfa91f5483dbf37.png"
+                                             href="46d1de250e50d388c36310f41ffdb1df3820e85dd7a36c963dfa91f5483dbf37.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.62s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="32"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Line Description to 'TEST1'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=53">
+                                        <img src="2395cfd541c6db4b1ae146558e9a9ea7a2a0ffc3bca18759e398af91a1233ce6.png"
+                                             href="2395cfd541c6db4b1ae146558e9a9ea7a2a0ffc3bca18759e398af91a1233ce6.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.12s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="33"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Amount to '1000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=54">
+                                        <img src="93ecdebab958393152a7daa8f8570bd02ca581075e599d9c6c528bc0e2cb9c99.png"
+                                             href="93ecdebab958393152a7daa8f8570bd02ca581075e599d9c6c528bc0e2cb9c99.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">2.1s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="34"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Cost Center to 'AMM2100'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=55">
+                                        <img src="e489b27f8e1e3e267d61cb8e8b7d75879559f7bf27e66c3190dec245983b882d.png"
+                                             href="e489b27f8e1e3e267d61cb8e8b7d75879559f7bf27e66c3190dec245983b882d.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=56">
+                                        <img src="62d63345d9e688b3f6e904309c1bd8b1bcfa625874fb343600c26aaa40f694a2.png"
+                                             href="62d63345d9e688b3f6e904309c1bd8b1bcfa625874fb343600c26aaa40f694a2.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.87s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="35"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the General Obj to 'AFGHAIG'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=57">
+                                        <img src="688a9e51b64fa21466b9cafc4ad5cb686bab6cb43111e19866a073bdb6c05b60.png"
+                                             href="688a9e51b64fa21466b9cafc4ad5cb686bab6cb43111e19866a073bdb6c05b60.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=58">
+                                        <img src="8a8f66ead0b44e861bf37e491b4334a9c6342afd90af92515d655fa610e259c4.png"
+                                             href="8a8f66ead0b44e861bf37e491b4334a9c6342afd90af92515d655fa610e259c4.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">5.72s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="36"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click show next button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=60">
+                                        <img src="54e23a426d644cf08d45e51cdb06e4e52288f67562b745211d7dc3545e199fcc.png"
+                                             href="54e23a426d644cf08d45e51cdb06e4e52288f67562b745211d7dc3545e199fcc.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.76s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="37"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Units to '30'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=61">
+                                        <img src="47a8b7bee01193e87f462788d07d9bd759e15f4c61fba203ac52c874e05f3278.png"
+                                             href="47a8b7bee01193e87f462788d07d9bd759e15f4c61fba203ac52c874e05f3278.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.1s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="38"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Unit of Measure should be set to 'Cubic Metre'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=62">
+                                        <img src="0e2d7b6ba176cbab231c1d8b68cbe56d504132b867ccd8a8008f3ebbb2bc524e.png"
+                                             href="0e2d7b6ba176cbab231c1d8b68cbe56d504132b867ccd8a8008f3ebbb2bc524e.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.73s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="39"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the 'Line Ref' to 'AF-HER-ASSENG-07-1-0001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=63">
+                                        <img src="1c1e1d02934774c54618bd8ffd172e09a6cc77446ee269ede8d5ffd58f5e34e2.png"
+                                             href="1c1e1d02934774c54618bd8ffd172e09a6cc77446ee269ede8d5ffd58f5e34e2.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.43s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="40"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on add line button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=65">
+                                        <img src="6b6409a9df24ad1d5582d08a673eedfdba88a57b978b709e5f01ea319b9fe334.png"
+                                             href="6b6409a9df24ad1d5582d08a673eedfdba88a57b978b709e5f01ea319b9fe334.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.85s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="41"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on the last line
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=67">
+                                        <img src="dc2795a0dd4e84623098334b998c89d7869736179e605d08f695d00071e42a9c.png"
+                                             href="dc2795a0dd4e84623098334b998c89d7869736179e605d08f695d00071e42a9c.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.75s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="42"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Account Number to '960004'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=68">
+                                        <img src="7e69a5c9daf6d8e33e0120c51dd17901f178c0ebbd4075c0fe2bf7de9ae3ef15.png"
+                                             href="7e69a5c9daf6d8e33e0120c51dd17901f178c0ebbd4075c0fe2bf7de9ae3ef15.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=69">
+                                        <img src="4e6ac74eec72c8d1ba5c4f188f02fc43e3e16874fd219157f7f830b91ad8f0cd.png"
+                                             href="4e6ac74eec72c8d1ba5c4f188f02fc43e3e16874fd219157f7f830b91ad8f0cd.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">8.87s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="43"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Line Description placeholder should be set to 'PREMISE CODE/Consumption Period'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=70">
+                                        <img src="6ea3d443792fe8fa9d71b227244354b0960686791e1bc469b47e3069913ed692.png"
+                                             href="6ea3d443792fe8fa9d71b227244354b0960686791e1bc469b47e3069913ed692.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.68s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="44"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Line Description to 'TEST1'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=71">
+                                        <img src="bdcf80c3dd9be3130747aa33d54c3d841ec4082608056fd8cca6a911f0008f22.png"
+                                             href="bdcf80c3dd9be3130747aa33d54c3d841ec4082608056fd8cca6a911f0008f22.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.2s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="45"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Amount to '1000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=72">
+                                        <img src="1c5d6a041c05416aa8bf01b138ac54d8687023b50b1e6afad73ce1e693169d1b.png"
+                                             href="1c5d6a041c05416aa8bf01b138ac54d8687023b50b1e6afad73ce1e693169d1b.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">2.15s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="46"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Cost Center to 'DAM1000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=73">
+                                        <img src="fa70792b57536da01d7f5c60f355642cd83f7d87ba3f09d26e12cab91faf7ead.png"
+                                             href="fa70792b57536da01d7f5c60f355642cd83f7d87ba3f09d26e12cab91faf7ead.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=74">
+                                        <img src="5f5577569f63b1181e8bf953750a3cd25cf27e6e8fe219c3bcfc3b1dd6ef2931.png"
+                                             href="5f5577569f63b1181e8bf953750a3cd25cf27e6e8fe219c3bcfc3b1dd6ef2931.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.96s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="47"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the General Obj to 'AFGHAIG'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=75">
+                                        <img src="03fad2b6881b322155646b5d3840a5f134132363cb98369fc11a66890dc3cc69.png"
+                                             href="03fad2b6881b322155646b5d3840a5f134132363cb98369fc11a66890dc3cc69.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=76">
+                                        <img src="9c7bf2ad17f3c5f3da30a9e2580487daa30249180d104d1c954297af3273a254.png"
+                                             href="9c7bf2ad17f3c5f3da30a9e2580487daa30249180d104d1c954297af3273a254.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.81s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="48"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click show next button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=78">
+                                        <img src="4c308b11053e50cdda02c7fc2461bef5bec4d42ad5ba89764d7acd9625611aeb.png"
+                                             href="4c308b11053e50cdda02c7fc2461bef5bec4d42ad5ba89764d7acd9625611aeb.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.77s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="49"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Units to '40'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=79">
+                                        <img src="9157892cc5c2a30031bb3c3ee120ff708d472ee9eb7a30c9b627d3a9cdcc5218.png"
+                                             href="9157892cc5c2a30031bb3c3ee120ff708d472ee9eb7a30c9b627d3a9cdcc5218.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.11s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="50"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Unit of Measure should be set to 'Giga Calories'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=80">
+                                        <img src="d42f6ae280e599a7b2d59acf67780bd1ba833059d07ce387fa000b4020c9606c.png"
+                                             href="d42f6ae280e599a7b2d59acf67780bd1ba833059d07ce387fa000b4020c9606c.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.71s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="51"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the 'Line Ref' to 'AF-HER-ASSENG-07-1-0001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=81">
+                                        <img src="6594b356651b65633d784fd262796304510470f15159c01401d543bddd53da60.png"
+                                             href="6594b356651b65633d784fd262796304510470f15159c01401d543bddd53da60.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.39s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="52"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on add line button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=83">
+                                        <img src="1a4e7d50f95e9887775735ca1bb9bd9f94d1f36bf400949cbb00c0ce451021ac.png"
+                                             href="1a4e7d50f95e9887775735ca1bb9bd9f94d1f36bf400949cbb00c0ce451021ac.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.86s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="53"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click on the last line
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=85">
+                                        <img src="859411bbf48c33a4543b361a69181f1f694c60d6dd66d9b78093045e694e839d.png"
+                                             href="859411bbf48c33a4543b361a69181f1f694c60d6dd66d9b78093045e694e839d.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.9s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="54"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Account Number to '948001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=86">
+                                        <img src="1c47288ec1faf1f6fc28a1d7423575b0a920a6e5cdb2ba1f1e1a8523a500fe6b.png"
+                                             href="1c47288ec1faf1f6fc28a1d7423575b0a920a6e5cdb2ba1f1e1a8523a500fe6b.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=87">
+                                        <img src="49e5a0de215bf48a1f8c369712d67e02bbba35401e1447f25d6507cc801bde2e.png"
+                                             href="49e5a0de215bf48a1f8c369712d67e02bbba35401e1447f25d6507cc801bde2e.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">8.06s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="55"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Line Description placeholder should be set to 'PREMISE CODE/Paper Size/Delivery Date'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=88">
+                                        <img src="c92b909ca51a9afd7222e91b8ca9600060f4feb4b02aa389c5f5e4bbdae6fb70.png"
+                                             href="c92b909ca51a9afd7222e91b8ca9600060f4feb4b02aa389c5f5e4bbdae6fb70.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.65s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="56"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Line Description to 'TEST1'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=89">
+                                        <img src="206a7bce0f54965c9f9aa1695a1af0b61b5fd6e2775090570d70f7f8dd46dd27.png"
+                                             href="206a7bce0f54965c9f9aa1695a1af0b61b5fd6e2775090570d70f7f8dd46dd27.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.19s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="57"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Amount to '1000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=90">
+                                        <img src="14ca371ce89e8289558c39a5aba4ebe706bd2d14c1e11b59df58f4a7aded2000.png"
+                                             href="14ca371ce89e8289558c39a5aba4ebe706bd2d14c1e11b59df58f4a7aded2000.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.93s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="58"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Cost Center to 'AMM5000'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=91">
+                                        <img src="5ecdd45aa74b5267c984814ff22df7c01498bb403d2395d8a9b3c17b29ab6349.png"
+                                             href="5ecdd45aa74b5267c984814ff22df7c01498bb403d2395d8a9b3c17b29ab6349.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=92">
+                                        <img src="b7ab0527175d99226368f43768c88af5668aed2e786778b87865b495e0006efb.png"
+                                             href="b7ab0527175d99226368f43768c88af5668aed2e786778b87865b495e0006efb.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.94s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="59"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the General Obj to 'AFGHAIG'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=93">
+                                        <img src="ccebe637611fd83e30e9c6b281f38e87834dccd8918b96668da37140594374ed.png"
+                                             href="ccebe637611fd83e30e9c6b281f38e87834dccd8918b96668da37140594374ed.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                                    <i class="fas fa-arrow-right"></i>
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=94">
+                                        <img src="57b18bf71aebecaa411c7172591f09fc879871c0349e25c2c161c5d9be93f13d.png"
+                                             href="57b18bf71aebecaa411c7172591f09fc879871c0349e25c2c161c5d9be93f13d.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">4.73s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="60"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When i click show next button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=96">
+                                        <img src="631a3e99dcca4139a90de51c2b794f4a4a913026e74910ea225ee190196da37b.png"
+                                             href="631a3e99dcca4139a90de51c2b794f4a4a913026e74910ea225ee190196da37b.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.79s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="61"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the Units to '1'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=97">
+                                        <img src="5b971fb74de6346e88eb500b8a5b81ba1359f9ed67261b29a207b394b86758fc.png"
+                                             href="5b971fb74de6346e88eb500b8a5b81ba1359f9ed67261b29a207b394b86758fc.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.21s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="62"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the Unit of Measure should be set to 'Ream'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=98">
+                                        <img src="c2676bbd03dbef3eb04fb09ebdbdf0543451b4cd7bd302b48084276a2e0bb64b.png"
+                                             href="c2676bbd03dbef3eb04fb09ebdbdf0543451b4cd7bd302b48084276a2e0bb64b.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.73s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="63"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I set the 'Line Ref' to 'AF-HER-ASSENG-07-1-0001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=99">
+                                        <img src="ec1f77f9ea800e5fc7026aa62afcc3d1765184454c69adc384238677c419138f.png"
+                                             href="ec1f77f9ea800e5fc7026aa62afcc3d1765184454c69adc384238677c419138f.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.37s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="64"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I click the 'Select Cash' Button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=101">
+                                        <img src="fb3b7f177554c43be82c8e97ad3634922be09a2f4aeb6cb8c29d60208ed0b56b.png"
+                                             href="fb3b7f177554c43be82c8e97ad3634922be09a2f4aeb6cb8c29d60208ed0b56b.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0.9s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="65"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the 'Select CASH Account' modal should show up
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SUCCESS-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=102">
+                                        <img src="b21b792c3a4868fc3221bee707ab78c40b4b8c4d7f236942ac49fa1c7ac69be6.png"
+                                             href="b21b792c3a4868fc3221bee707ab78c40b4b8c4d7f236942ac49fa1c7ac69be6.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1.13s</span></td>
+                    </tr>
+                    <tr class="test-ERROR">
+
+                        <td width="50" class="step-icon">
+                            <a name="66"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-exclamation-triangle error-icon ' title='ERROR'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I select first checkbox from 'Select Cash' modal
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="ERROR-text">
+
+                                    <a href="6e63b959c568e6488fa9925ac8f9b213738a5b4b2a134a789bd12ba435eb621e_screenshots.html#screenshots?screenshot=103">
+                                        <img src="f3dea5aa80f8bde5b70fa45ef173c45ab682a8aba82003ce84a78cb1e203398a.png"
+                                             href="f3dea5aa80f8bde5b70fa45ef173c45ab682a8aba82003ce84a78cb1e203398a.png"
+                                             class="screenshot"
+                                             width="48" height="48"/>
+                                    </a>
+                            </td>
+                        <td width="130"><span class="top-level-step">ERROR</span></td>
+                        <td width="100"><span class="top-level-step">10.38s</span></td>
+                    </tr>
+                        <tr class="test-ERROR">
+                            <td width="40">&nbsp</td>
+                            <td width="%" colspan="4" class="error-message-cell">
+
+
+    <div style="display:block">
+        <div class="table">
+            <div class="row">
+                <div class="col-sm-10" style="padding-left:1.5em; padding-top:0.5em; padding-bottom:0.5em;">
+                    <span class="error-message error-message-title">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[contains(@class, &#39;modal&#39;) and contains(@style, &#39;left: 0px&#39;)]//div[2]//table&quot;}<br>  (Session info: chrome=131.0.6778.71)<br>For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html<br>Build info: version: &#39;3.141.59&#39;, revision: &#39;e82be7d358&#39;, time: &#39;2018-11-14T08:17:03&#39;<br>System info: host: &#39;PCS15848&#39;, ip: &#39;192.168.1.12&#39;, os.name: &#39;Windows 10&#39;, os.arch: &#39;amd64&#39;, os.version: &#39;10.0&#39;, java.version: &#39;1.8.0_392&#39;<br>Driver info: org.openqa.selenium.chrome.ChromeDriver<br>Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.71, chrome: {chromedriverVersion: 130.0.6723.69 (3ec172b971b9..., userDataDir: C:\Users\A734509\AppData\Lo...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63817}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}<br>Session ID: 2d1b40b5098d46a19adbbaceafa4848d<br>*** Element info: {Using=xpath, value=//div[contains(@class, &#39;modal&#39;) and contains(@style, &#39;left: 0px&#39;)]//div[2]//table}</span>
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-warning details-button" data-toggle="collapse" href="#stacktraceModal-69""
+                       role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="far fa-eye"></i> More details</a>
+                </div>
+             </div>
+        </div>
+    <div>
+
+    <!-- Details Section -->
+    <div class="row stacktrace-details">
+      <div class="col">
+        <div class="collapse multi-collapse" id="stacktraceModal-69">
+            <div class="card">
+                <div class="card-header">
+                    <h4>org.openqa.selenium.NoSuchElementException </h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <pre>pageobjects.IRIS.FAD.FADModalPage.getRowElementFromTable(FADModalPage.java:44)<br />pageobjects.IRIS.FAD.FADModalPage.selectFirstCheckbox(FADModalPage.java:35)<br />steps.IRIS.FAD.GeneralLedgerEntrySteps.when_I_select_first_checkbox_from_Select_Cash_modal(GeneralLedgerEntrySteps.java:71)<br />org.icrc.fadapplic.IRIS.FAD.GeneralLedger.GeneralLedgerEntries.createGeneralLedgerEntryUsingSustainabilityAccounts(GeneralLedgerEntries.java:267)<br /></pre>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+                            </td>
+                        </tr>
+                    <tr class="test-SKIPPED">
+
+                        <td width="50" class="step-icon">
+                            <a name="67"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-fast-forward skipped-icon ' title='SKIPPED'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I click 'Submit' button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SKIPPED-text">
+
+                            </td>
+                        <td width="130"><span class="top-level-step">SKIPPED</span></td>
+                        <td width="100"><span class="top-level-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SKIPPED">
+
+                        <td width="50" class="step-icon">
+                            <a name="68"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-fast-forward skipped-icon ' title='SKIPPED'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                When I click 'Proceed' button
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SKIPPED-text">
+
+                            </td>
+                        <td width="130"><span class="top-level-step">SKIPPED</span></td>
+                        <td width="100"><span class="top-level-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SKIPPED">
+
+                        <td width="50" class="step-icon">
+                            <a name="69"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-fast-forward skipped-icon ' title='SKIPPED'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then the 'General Ledger Entry successfully created' modal should show up
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                            <td width="160" class="SKIPPED-text">
+
+                            </td>
+                        <td width="130"><span class="top-level-step">SKIPPED</span></td>
+                        <td width="100"><span class="top-level-step">0s</span></td>
+                    </tr>
+                <tr class="test-ERROR">
+                        <td colspan="3"></td>
+                    <td width="130"><span class="top-level-step"><em>ERROR</em></span></td>
+                    <td width="100"><span class="top-level-step"><em>219.35s</em></span></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div id="beforefooter"></div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="version">Serenity BDD version 2.1.6</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function toggleDiv(divId) {
+            $("#" + divId).toggle();
+            var imgsrc = $(".img" + divId).attr('src');
+            if (imgsrc == 'images/plus.png') {
+                $(".img" + divId).attr("src", function () {
+                    return "images/minus.png";
+                });
+
+            } else {
+                $(".img" + divId).attr("src", function () {
+                    return "images/plus.png";
+                });
+            }
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        $(document).ready(function () {
+            $('img.screenshot').imgPreview({
+                imgCSS: {
+                    width: '500px'
+                },
+                distanceFromCursor: {top: 10, left: -200}
+            });
+        });
+
+        //]]>
+    </script>
+    <div id="imgPreviewContainer" style="position: absolute; top: 612px; left: 355px; display: none; " class=""><img
+                src="" style="display: none; "></div>
+    <div id="imgPreviewContainer2" style="position: absolute; top: 925px; left: 320px; display: none; " class="">
+        <img style="width: 200px; display: none; " src=""></div>
+    <div id="imgPreviewWithStyles" style="position: absolute; top: 1272px; left: 321px; display: none; " class="">
+        <img style="height: 200px; opacity: 1; display: none; " src=""></div>
+    <div id="imgPreviewWithStyles2" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+    <div id="imgPreviewWithStyles3" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+
+</div>
+</body>
+</html>
